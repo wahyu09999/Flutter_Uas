@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_uas/screen/auth/register.dart';
 
+import '../../network/api.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
   @override
@@ -8,6 +10,17 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+    Future doLogin() async{
+  final email = txtEmail.text;
+  final password = txtPassword.text;
+  final deviceId = "12345";
+  final response = await HttpHelper().login(email, password, deviceId);
+  print(response.body);
+}
+
+final txtEmail = TextEditingController(text : 'superadmin@gmail.com');
+  final txtPassword = TextEditingController(text : 'password');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,19 +39,23 @@ class _Login extends State<Login> {
             height: 40,
           ),
           TextFormField(
+            controller: txtEmail,
             decoration: InputDecoration(label: Text('Username')),
           ),
           SizedBox(
             height: 10,
           ),
           TextFormField(
+            controller:txtPassword ,
             decoration: InputDecoration(label: Text('Passwrd')),
           ),
           SizedBox(
             height: 10,
           ),
           ElevatedButton(
-            onPressed: () => '',
+            onPressed:() {
+              doLogin();
+            }, 
             child: Text('Login'),
           ),
           SizedBox(
