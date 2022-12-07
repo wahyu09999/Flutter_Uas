@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_uas/screen/auth/register.dart';
+import 'package:flutter_uas/screen/auth/login.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
   @override
-  State<Login> createState() => _Login();
+  State<Register> createState() => _Register();
 }
 
-class _Login extends State<Login> {
+class _Register extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,12 +19,17 @@ class _Login extends State<Login> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Login Page',
+            'Register Page',
             style: TextStyle(color: Colors.white, fontSize: 40),
           ),
           SizedBox(
             height: 40,
           ),
+          TextFormField(
+            decoration: InputDecoration(label: Text('Name')),
+          ),
+          SizedBox(
+            height: 10,),
           TextFormField(
             decoration: InputDecoration(label: Text('Username')),
           ),
@@ -39,7 +44,7 @@ class _Login extends State<Login> {
           ),
           ElevatedButton(
             onPressed: () => '',
-            child: Text('Login'),
+            child: Text('Register'),
           ),
           SizedBox(
             height: 10,
@@ -48,14 +53,13 @@ class _Login extends State<Login> {
           SizedBox(
             height: 10,
           ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
+          ElevatedButton(onPressed: () {
+            Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Register()),
+                  MaterialPageRoute(builder: (context) => const Login()),
                 );
-              },
-              child: Text('Register')),
+          }, child: Text('Login')),
+          
         ],
       ),
     ));
