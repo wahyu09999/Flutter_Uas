@@ -28,6 +28,9 @@ class HttpHelper {
       const key = 'token';
 
       final token = json.decode(response.body);
+      var data = json.decode(response.body);
+      _save('name', data['name']);
+      _save('email', data['email']);
 
       prefs.setString(key, token['token']);
     }
@@ -141,4 +144,9 @@ class HttpHelper {
     final response = await delete(url, headers: headers);
     return response;
   }
+
+  _save(String key, String data) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(key,data);
+}
 }
