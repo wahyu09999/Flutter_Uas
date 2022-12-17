@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_uas/screen/auth/register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../network/api.dart';
 
@@ -16,6 +17,22 @@ class _Login extends State<Login> {
   final deviceId = "12345";
   final response = await HttpHelper().login(email, password, deviceId);
   print(response.body);
+  SharedPreferences pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final value = pref.get(key);
+    final token = value;
+    // print(token);
+    // if (token == null) {
+    //   Navigator.pushNamed(
+    //     context,
+    //     '/',
+    //   );
+    // } else {
+      Navigator.pushNamed(
+        context,
+        '/Home',
+);
+// }
 }
 
 final txtEmail = TextEditingController(text : 'superadmin@gmail.com');
