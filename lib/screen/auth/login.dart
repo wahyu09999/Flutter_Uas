@@ -11,32 +11,24 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
-    Future doLogin() async{
-  final email = txtEmail.text;
-  final password = txtPassword.text;
-  final deviceId = "12345";
-  final response = await HttpHelper().login(email, password, deviceId);
-  print(response.body);
-  SharedPreferences pref = await SharedPreferences.getInstance();
+  Future doLogin() async {
+    final email = txtEmail.text;
+    final password = txtPassword.text;
+    final deviceId = "12345";
+    final response = await HttpHelper().login(email, password, deviceId);
+    print(response.body);
+    SharedPreferences pref = await SharedPreferences.getInstance();
     const key = 'token';
     final value = pref.get(key);
     final token = value;
-    // print(token);
-    // if (token == null) {
-    //   Navigator.pushNamed(
-    //     context,
-    //     '/',
-    //   );
-    // } else {
-      Navigator.pushNamed(
-        context,
-        '/Home',
-);
-// }
-}
+    Navigator.pushNamed(
+      context,
+      '/Home',
+    );
+  }
 
-final txtEmail = TextEditingController(text : 'superadmin@gmail.com');
-  final txtPassword = TextEditingController(text : 'password');
+  final txtEmail = TextEditingController(text: 'superadmin@gmail.com');
+  final txtPassword = TextEditingController(text: 'password');
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +55,16 @@ final txtEmail = TextEditingController(text : 'superadmin@gmail.com');
             height: 10,
           ),
           TextFormField(
-            controller:txtPassword ,
+            controller: txtPassword,
             decoration: InputDecoration(label: Text('Passwrd')),
           ),
           SizedBox(
             height: 10,
           ),
           ElevatedButton(
-            onPressed:() {
+            onPressed: () {
               doLogin();
-            }, 
+            },
             child: Text('Login'),
           ),
           SizedBox(

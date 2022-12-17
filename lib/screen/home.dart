@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_uas/screen/editKat.dart';
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_uas/model/category_models.dart';
-
 
 import '../../network/api.dart';
 
@@ -71,7 +71,7 @@ class _Home extends State<Home> {
     });
   }
 
-   final TextEditingController addCategoryTxt = TextEditingController();
+  final TextEditingController addCategoryTxt = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -173,51 +173,27 @@ class _Home extends State<Home> {
                 ],
               ),
             ),
-
             Container(
-                      margin: const EdgeInsets.all(16),
-                      child: TextFormField(
-                        controller: addCategoryTxt,
-                        decoration: InputDecoration(
-                          hintText: "Input Your Categories Name",
-                          labelText: "Add Categories",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                          suffixIcon: Container(
-                            margin: const EdgeInsets.fromLTRB(0, 8, 12, 8),
-                            child: ElevatedButton(
-                              child: const Text("Add"),
-                              onPressed: () {
-                                doAddCategory();
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
+              margin: const EdgeInsets.all(16),
+              child: TextFormField(
+                controller: addCategoryTxt,
+                decoration: InputDecoration(
+                  hintText: "Input Your Categories Name",
+                  labelText: "Add Categories",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0)),
+                  suffixIcon: Container(
+                    margin: const EdgeInsets.fromLTRB(0, 8, 12, 8),
+                    child: ElevatedButton(
+                      child: const Text("Add"),
+                      onPressed: () {
+                        doAddCategory();
+                      },
                     ),
-
-
-            // const SizedBox(
-            //   height: 20,
-            // ),
-    //         Container(
-    //   height: double.infinity,
-    //   width: double.infinity,
-    //   decoration: BoxDecoration(color: Colors.lightBlue),
-    //   child: Column(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-
-    //       ElevatedButton(
-    //           onPressed: () {
-                
-    //           },
-    //           child: Text('Tambah List')),
-    //     ],
-    //   ),
-    // ),
-
-
+                  ),
+                ),
+              ),
+            ),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -263,18 +239,22 @@ class _Home extends State<Home> {
                         ),
                       ),
                       onDismissed: (DismissDirection direction) async {
-                      if (direction == DismissDirection.startToEnd) {
-                        Navigator.pushNamed(
-                          context,
-                          '/Edit',
-                        );
-                        }else{                       
-                          final response =
-                              await HttpHelper().deleteCategory(listCategory[index]);
+                        if (direction == DismissDirection.startToEnd) {
+                          // Navigator.pushNamed(
+                          //   context,
+                          //   '/Edit',
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    editCategory(category: listCategory[index]),
+                              ));
+                        } else {
+                          final response = await HttpHelper()
+                              .deleteCategory(listCategory[index]);
                           print(response.body);
-                          }
-                      
-    },
+                        }
+                      },
                       child: Container(
                         margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                         decoration: BoxDecoration(
@@ -308,8 +288,7 @@ class _Home extends State<Home> {
                 ),
               ),
             ),
-            
           ],
- ));
-}
+        ));
+  }
 }
