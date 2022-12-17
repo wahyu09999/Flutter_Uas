@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_uas/model/category_models.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -86,6 +87,58 @@ class HttpHelper {
     };
     final response = await post(url, body: body, headers: headers);
 
+    return response;
+  }
+
+  Future<Response> requestAddCategory(String name) async {
+    var url = Uri.parse(_baseUrl + 'category');
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    final response = await post(
+      url,
+      headers: {
+        "Accept": "application/json",
+        "Access-Control_Allow_Origin": "*",
+        "Authorization": "Bearer $token",
+      },
+      body: {
+        "name": name,
+      },
+    );
+    return response;
+  }
+
+  Future<Response> addCategory(String name) async {
+    final url = Uri.parse(_baseUrl + 'category');
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final value = pref.get(key);
+    final token = value;
+    final body = {
+      'name': name,
+    };
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + '$token',
+    };
+
+    final response = await post(url, body: body, headers: headers);
+    return response;
+  }
+
+  Future<Response> deleteCategory(Category category) async {
+    final url = Uri.parse(_baseUrl + 'category/${category.id}');
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    const key = 'token';
+    final value = pref.get(key);
+    final token = value;
+    final headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + '$token',
+    };
+
+    final response = await delete(url, headers: headers);
     return response;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_uas/screen/auth/login.dart';
+import 'package:flutter_uas/screen/editKat.dart';
 import 'package:flutter_uas/screen/home.dart';
 
 void main() {
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
       routes: {
         "/":(context) => const Login(),
         "/Home":(context) => const Home(),
+        "/Edit":(context) => const editCategory(),
+
 
       },
       title: 'Flutter Demo',
